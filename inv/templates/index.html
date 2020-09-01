@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<br>
+
+<div class="button-group">
+
+	<a href="{% url 'inv:display_laptops' %}" class="btn btn-primary btn-md" role="button">Laptops</a>
+	<a href="{% url 'inv:add_laptop' %}" class="btn btn-warning btn-sm" role="button">+</a>
+
+	<a href="{% url 'inv:display_desktops' %}"  class="btn btn-primary btn-md" role="button">Desktops</a>
+	<a href="{% url 'inv:add_desktop' %}" class="btn btn-warning btn-sm" role="button">+</a>
+
+	<a href="{% url 'inv:display_mobiles' %}"  class="btn btn-primary btn-md" role="button">Mobiles</a>
+	<a href="{% url 'inv:add_mobile' %}" class="btn btn-warning btn-sm" role="button">+</a>
+
+</div>
+
+<br>
+
+<h4>currently viewing {{header}}</h4>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>Model</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th>issues</th>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% for item in items %}
+
+		<tr>
+			<td>{{item.id}}</td>
+			<td>{{item.typee}}</td>
+			<td>{{item.price}}</td>
+			<td>{{item.status}}</td>
+			<td>{{item.issues}}</td>
+
+
+			{% if header|lower == "laptops" %}
+			<td>
+
+				<a href="{% url 'inv:edit_laptop' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+				<td>
+				<a href="{% url 'inv:delete_laptop' item.pk %}" class="btn btn-warning btn-sm" role="button">Delete</a>
+			</td>
+
+			</td>
+			{% elif header|lower == "desktops" %}
+
+			<td>
+
+				<a href="{% url 'inv:edit_desktop' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+				<td>
+				<a href="{% url 'inv:delete_desktop' item.pk %}" class="btn btn-warning btn-sm" role="button">Delete</a>
+			</td>
+
+			</td>
+			{% else %}
+
+			<td>
+
+				<a href="{% url 'inv:edit_mobile' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+				<td>
+				<a href="{% url 'inv:delete_mobile' item.pk %}" class="btn btn-warning btn-sm" role="button">Delete</a>
+			</td>
+
+			</td>
+
+			{% endif %}
+		</tr>
+
+		{% endfor %}
+	</tbody>
+	
+
+</table>
+
+{% endblock %}
